@@ -34,17 +34,17 @@ class ViewController: UIViewController {
     }
 
     @IBAction func numButtonPressed(_ sender: UIButton) {
+        guard let numVal = sender.currentTitle else { return }
         
-        if let numVal = sender.currentTitle {
-            if isFinishedTypingNumber {
-                displayLabel.text = numVal
-                isFinishedTypingNumber = false
-            } else {
-                displayLabel.text! += numVal
+        if isFinishedTypingNumber {
+            displayLabel.text = numVal == "." ? "0." : numVal
+            isFinishedTypingNumber = false
+        } else {
+            guard numVal != "." || !displayLabel.text!.contains(".")  else {
+                return
             }
+            displayLabel.text! += numVal
         }
-        
     }
-
 }
 
