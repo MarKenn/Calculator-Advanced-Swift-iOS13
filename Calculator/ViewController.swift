@@ -12,24 +12,31 @@ class ViewController: UIViewController {
     
     // MARK: - DATA
     private var isFinishedTypingNumber = true
+    private var displayValue: Double {
+        get {
+            guard let number = Double(displayLabel.text!) else {
+                fatalError("Cannot convert display label text to a Double")
+            }
+            return number
+        }
+        set {
+            displayLabel.text = String(newValue)
+        }
+    }
     
     @IBOutlet weak var displayLabel: UILabel!
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         isFinishedTypingNumber = true
         
-        guard let number = Double(displayLabel.text!) else {
-            fatalError("Cannot convert display label text to a Double")
-        }
+        guard let calcMethod = sender.currentTitle else { return }
         
-        if let calcMethod = sender.currentTitle {
-            if calcMethod == "+/-" {
-                displayLabel.text = String(number * -1)
-            } else if calcMethod == "AC" {
-                displayLabel.text = "0"
-            } else if calcMethod == "%" {
-                displayLabel.text = String(number / 100)
-            }
+        if calcMethod == "+/-" {
+            displayValue *= -1
+        } else if calcMethod == "AC" {
+            displayValue = 0
+        } else if calcMethod == "%" {
+            displayValue /= 100
         }
     }
 
