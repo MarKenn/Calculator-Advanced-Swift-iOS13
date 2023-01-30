@@ -10,13 +10,15 @@ import Foundation
 
 struct CalculatorLogic {
 
-    var number: Double
+    private var number: Double?
 
-    init(number: Double) {
+    mutating func setNumber(_ number: Double) {
         self.number = number
     }
 
     func calculate(symbol: String) -> Double? {
+        guard let number else { return nil }
+
         if symbol == "+/-" {
             return number * -1
         } else if symbol == "AC" {
