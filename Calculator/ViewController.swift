@@ -34,10 +34,9 @@ class ViewController: UIViewController {
         
         guard let calcMethod = sender.currentTitle else { return }
 
-        guard let result = calculatorLogic.calculate(symbol: calcMethod) else {
-            fatalError("The result of the the calculation is nil")
+        if let result = calculatorLogic.calculate(symbol: calcMethod) {
+            displayValue = result
         }
-        displayValue = result
     }
 
     @IBAction func numButtonPressed(_ sender: UIButton) {
